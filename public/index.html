@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>LibraNova | Smart Library</title>
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+</head>
+
+<body>
+
+<!-- ================================= -->
+<!-- NAVBAR -->
+<!-- ================================= -->
+
+<header class="navbar">
+
+  <div class="logo">
+
+    <div class="logo-icon">
+      L
+    </div>
+
+    <div>
+      <h2>LibraNova</h2>
+      <span>Smart Library</span>
+    </div>
+
+  </div>
+
+  <nav>
+
+    <button
+      onclick="showSection('home')"
+      class="nav-btn"
+    >
+      Home
+    </button>
+
+    <button
+      onclick="showSection('books')"
+      class="nav-btn"
+    >
+      Explore
+    </button>
+
+    <button
+      onclick="showSection('dashboard')"
+      class="nav-btn"
+    >
+      My Library
+    </button>
+
+  </nav>
+
+  <div class="nav-actions">
+
+    <button
+      id="navLogin"
+      class="outline-btn"
+      onclick="showSection('login')"
+    >
+      Login
+    </button>
+
+    <button
+      id="navRegister"
+      class="primary-btn"
+      onclick="showSection('register')"
+    >
+      Get Started
+    </button>
+
+    <button
+      id="logoutBtn"
+      class="outline-btn hidden"
+      onclick="logout()"
+    >
+      Logout
+    </button>
+
+  </div>
+
+</header>
+
+
+<!-- ================================= -->
+<!-- HOME -->
+<!-- ================================= -->
+
+<section
+  id="home"
+  class="section active"
+>
+
+  <div class="hero">
+
+    <div class="hero-content">
+
+      <div class="small-label">
+        ✦ YOUR DIGITAL READING SPACE
+      </div>
+
+      <h1>
+        Discover your next
+        <span>great read.</span>
+      </h1>
+
+      <p>
+        A smarter way to explore, borrow and
+        manage your library books — all in one
+        beautiful place.
+      </p>
+
+      <div class="hero-buttons">
+
+        <button
+          class="primary-btn large"
+          onclick="showSection('books')"
+        >
+          Explore Collection →
+        </button>
+
+        <button
+          class="secondary-btn large"
+          onclick="showSection('register')"
+        >
+          Create Account
+        </button>
+
+      </div>
+
+      <div class="hero-stats">
+
+        <div>
+          <strong id="homeBookCount">
+            0
+          </strong>
+          <span>Books</span>
+        </div>
+
+        <div>
+          <strong>
+            14
+          </strong>
+          <span>Days Borrow</span>
+        </div>
+
+        <div>
+          <strong>
+            ₹5
+          </strong>
+          <span>Daily Fine</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="hero-visual">
+
+      <div class="floating-card card-one">
+
+        <div class="mini-icon">
+          📖
+        </div>
+
+        <div>
+          <strong>
+            Easy Borrowing
+          </strong>
+
+          <span>
+            One click away
+          </span>
+        </div>
+
+      </div>
+
+      <div class="book-showcase">
+
+        <div class="book-spine">
+          LIBRA
+        </div>
+
+        <div class="book-cover">
+
+          <div class="cover-symbol">
+            ✦
+          </div>
+
+          <h3>
+            The Art
+            <br>
+            of Reading
+          </h3>
+
+          <p>
+            LIBRANOVA COLLECTION
+          </p>
+
+        </div>
+
+      </div>
+
+      <div class="floating-card card-two">
+
+        <span class="status-dot"></span>
+
+        <div>
+          <strong>
+            Live Availability
+          </strong>
+
+          <span>
+            Always updated
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================================= -->
+<!-- BOOKS -->
+<!-- ================================= -->
+
+<section
+  id="books"
+  class="section"
+>
+
+  <div class="page-heading">
+
+    <div>
+
+      <div class="small-label">
+        LIBRARY COLLECTION
+      </div>
+
+      <h1>
+        Explore Books
+      </h1>
+
+      <p>
+        Find something worth reading.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="search-container">
+
+    <div class="search-icon">
+      ⌕
+    </div>
+
+    <input
+      id="searchInput"
+      type="text"
+      placeholder="Search by title, author or category..."
+      oninput="searchBooks()"
+    >
+
+    <button
+      class="primary-btn"
+      onclick="searchBooks()"
+    >
+      Search
+    </button>
+
+  </div>
+
+
+  <div
+    id="bookList"
+    class="book-grid"
+  ></div>
+
+</section>
+
+
+<!-- ================================= -->
+<!-- LOGIN -->
+<!-- ================================= -->
+
+<section
+  id="login"
+  class="section auth-section"
+>
+
+  <div class="auth-card">
+
+    <div class="auth-logo">
+      L
+    </div>
+
+    <div class="small-label">
+      WELCOME BACK
+    </div>
+
+    <h1>
+      Sign in to LibraNova
+    </h1>
+
+    <p>
+      Continue your reading journey.
+    </p>
+
+    <input
+      id="loginEmail"
+      type="email"
+      placeholder="Email address"
+    >
+
+    <input
+      id="loginPassword"
+      type="password"
+      placeholder="Password"
+    >
+
+    <button
+      class="primary-btn full"
+      onclick="login()"
+    >
+      Sign In →
+    </button>
+
+    <div
+      id="loginMessage"
+      class="message"
+    ></div>
+
+    <p class="switch-text">
+
+      Don't have an account?
+
+      <button
+        onclick="showSection('register')"
+      >
+        Create one
+      </button>
+
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- ================================= -->
+<!-- REGISTER -->
+<!-- ================================= -->
+
+<section
+  id="register"
+  class="section auth-section"
+>
+
+  <div class="auth-card">
+
+    <div class="auth-logo">
+      L
+    </div>
+
+    <div class="small-label">
+      JOIN LIBRANOVA
+    </div>
+
+    <h1>
+      Create your account
+    </h1>
+
+    <p>
+      Start exploring thousands of possibilities.
+    </p>
+
+    <input
+      id="registerName"
+      type="text"
+      placeholder="Full name"
+    >
+
+    <input
+      id="registerEmail"
+      type="email"
+      placeholder="Email address"
+    >
+
+    <input
+      id="registerPassword"
+      type="password"
+      placeholder="Password (minimum 6 characters)"
+    >
+
+    <button
+      class="primary-btn full"
+      onclick="register()"
+    >
+      Create Account →
+    </button>
+
+    <div
+      id="registerMessage"
+      class="message"
+    ></div>
+
+    <p class="switch-text">
+
+      Already registered?
+
+      <button
+        onclick="showSection('login')"
+      >
+        Sign in
+      </button>
+
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- ================================= -->
+<!-- STUDENT DASHBOARD -->
+<!-- ================================= -->
+
+<section
+  id="dashboard"
+  class="section"
+>
+
+  <div class="dashboard-header">
+
+    <div>
+
+      <div class="small-label">
+        MY LIBRARY
+      </div>
+
+      <h1>
+        Your Reading Space
+      </h1>
+
+      <p id="userInfo">
+        Login to view your books.
+      </p>
+
+    </div>
+
+    <button
+      class="primary-btn"
+      onclick="showSection('books')"
+    >
+      Find a Book +
+    </button>
+
+  </div>
+
+
+  <div class="dashboard-cards">
+
+    <div class="stat-card">
+
+      <div class="stat-icon">
+        📚
+      </div>
+
+      <span>
+        Borrowed Books
+      </span>
+
+      <strong id="borrowedCount">
+        0
+      </strong>
+
+    </div>
+
+    <div class="stat-card">
+
+      <div class="stat-icon">
+        ⏰
+      </div>
+
+      <span>
+        Active Loans
+      </span>
+
+      <strong id="activeCount">
+        0
+      </strong>
+
+    </div>
+
+    <div class="stat-card">
+
+      <div class="stat-icon">
+        ₹
+      </div>
+
+      <span>
+        Total Fine
+      </span>
+
+      <strong id="fineCount">
+        ₹0
+      </strong>
+
+    </div>
+
+  </div>
+
+
+  <div class="content-card">
+
+    <div class="content-title">
+
+      <h2>
+        My Borrowed Books
+      </h2>
+
+      <span>
+        14-day borrowing period
+      </span>
+
+    </div>
+
+    <div id="myBooks"></div>
+
+  </div>
+
+</section>
+
+
+<!-- ================================= -->
+<!-- ADMIN -->
+<!-- ================================= -->
+
+<section
+  id="admin"
+  class="section"
+>
+
+  <div class="dashboard-header">
+
+    <div>
+
+      <div class="small-label">
+        ADMIN CONTROL
+      </div>
+
+      <h1>
+        Library Dashboard
+      </h1>
+
+      <p>
+        Manage your library collection.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="dashboard-cards">
+
+    <div class="stat-card">
+
+      <div class="stat-icon">
+        📚
+      </div>
+
+      <span>
+        Total Books
+      </span>
+
+      <strong id="adminTotalBooks">
+        0
+      </strong>
+
+    </div>
+
+    <div class="stat-card">
+
+      <div class="stat-icon">
+        ✓
+      </div>
+
+      <span>
+        Available Copies
+      </span>
+
+      <strong id="adminAvailableBooks">
+        0
+      </strong>
+
+    </div>
+
+  </div>
+
+
+  <div class="admin-layout">
+
+    <div class="content-card">
+
+      <div class="content-title">
+
+        <h2>
+          Add New Book
+        </h2>
+
+      </div>
+
+      <div class="admin-form">
+
+        <input
+          id="bookTitle"
+          type="text"
+          placeholder="Book title"
+        >
+
+        <input
+          id="bookAuthor"
+          type="text"
+          placeholder="Author"
+        >
+
+        <input
+          id="bookCategory"
+          type="text"
+          placeholder="Category"
+        >
+
+        <input
+          id="bookISBN"
+          type="text"
+          placeholder="ISBN"
+        >
+
+        <input
+          id="bookQuantity"
+          type="number"
+          placeholder="Quantity"
+          min="1"
+        >
+
+        <button
+          class="primary-btn full"
+          onclick="addBook()"
+        >
+          Add Book +
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="content-card">
+
+      <div class="content-title">
+
+        <h2>
+          Manage Collection
+        </h2>
+
+      </div>
+
+      <div
+        id="adminBookList"
+        class="admin-book-list"
+      ></div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- TOAST -->
+
+<div
+  id="toast"
+  class="toast"
+>
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
